@@ -1,0 +1,30 @@
+<div class="col-md-8 list-group contact-list">
+    <div ng-if="$ctrl.contacts">    
+        <div class="form-group label-floating">
+            <label class="control-label">Search...</label>
+            <input class="form-control" type="text" ng-model="$ctrl.search" value="">
+        </div>
+        <div class="col-md-12 list-group-item" ng-repeat="contact in $ctrl.contacts | filter:$ctrl.search | orderBy:'name'" >
+            <div class="col-md-12 list-group-item">
+                <div class="col-md-4">
+                    <div ng-If="contact.avatar" class="profile" style="background-image:url({{contact.avatar}})"></div>
+                    <div ng-If="!contact.avatar" class="profile" style="background-image:url(assets/images/no-avatar.png)"></div>
+                </div>
+                <div class="col-md-6">
+                    <h4 class="list-group-item-heading">
+                        {{contact.name}}
+                    </h4>
+                    <p class="list-group-item-text">{{contact.phone}}</p>
+                </div>    
+                <p class="text-right">
+                    <a class="btn btn-default btn-fab" ng-href="#!/contacts/details/{{contact.id}}">
+                        <i class="material-icons">arrow_forward</i>      
+                    </a>
+                </p>            
+            </div>
+        </div>
+    </div>
+</div>
+<div class="col-md-8 text-right"></p>
+    <a class="btn btn-info btn-fab add-new" ng-href="#!/contacts/details/add"><i class="material-icons">add</i></a>
+</div>

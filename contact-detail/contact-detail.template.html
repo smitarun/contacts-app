@@ -1,0 +1,74 @@
+<div class="col-md-16" ng-if="$ctrl.contactDetail">
+    <div class="card">
+        <div>
+            <div ng-If="$ctrl.contactDetail.avatar" class="profile-big" style="background-image:url({{$ctrl.contactDetail.avatar}})"></div>
+            <img ng-If="!$ctrl.contactDetail.avatar" class="profile-big" ng-src="assets/images/no-avatar.png"></div>
+        </div>        
+        <div class="info">				
+            <form name="contactForm" ng-submit="$ctrl.isNew ? $ctrl.addContact() : $ctrl.saveContact()" class="css-form" novalidate>
+            <div class="form-group row" ng-class="{ 'has-error' : contactForm.name.$invalid && !contactForm.name.$pristine }">
+                <label for="name" class="col-md-2 col-form-label">Name<span ng-hide="$ctrl.viewMode" class="text text-danger">*</span></label>
+                <div class="col-md-10">
+                    <input name="name" type="text" class="form-control" placeholder="Full Name" style="cursor: auto;" ng-model="$ctrl.contactDetail.name"  ng-required="true" ng-disabled="$ctrl.viewMode">
+                    <div ng-show="contactForm.$submitted || contactForm.name.$touched">
+                        <p ng-show="contactForm.name.$invalid && !contactForm.name.$pristine" class="error-help">Contact name is required.</p>                    
+                    </div>                    
+                </div>
+            </div>
+            <div class="form-group row" ng-class="{ 'has-error' : contactForm.phone.$invalid && !contactForm.phone.$pristine }"> 
+                <label for="phone" class="col-md-2 col-form-label">Telephone<span ng-hide="$ctrl.viewMode" class="text text-danger">*</span></label>                
+                <div class="col-md-10">
+                    <input name="phone" type="tel" ng-model="$ctrl.contactDetail.phone" class="form-control" placeholder="Phone" style="cursor: auto;" ng-required="true"  ng-pattern="/^[\+]?[(]?[0-9]{3}[)]?[-\s\.]?[0-9]{3}[-\s\.]?[0-9]{4,6}$/" ng-disabled="$ctrl.viewMode">
+                    <p ng-show="contactForm.phone.$invalid && !contactForm.phone.$pristine" class="error-help">Contact number is required. Please enter a valid phone number.</p>                    
+                </div>
+            </div>            
+            <div class="form-group row" ng-class="{ 'has-error' : contactForm.email.$invalid && !contactForm.email.$pristine }">
+                <label for="email" class="col-md-2 col-form-label">Email</label>
+                <div class="col-md-10">
+                    <input name="email" type="email" ng-model="$ctrl.contactDetail.email" class="form-control" placeholder="Email" style="cursor: auto;" value="" ng-disabled="$ctrl.viewMode">
+                    <p ng-show="contactForm.email.$invalid && !contactForm.email.$pristine" class="error-help">Please enter a valid email.</p>
+                </div>
+            </div>
+            <div class="form-group row">
+                <label for="avatar" class="col-md-2 col-form-label">Avatar URL</label>
+                <div class="col-md-10">
+                    <input name="avatar" type="url" ng-model="$ctrl.contactDetail.avatar" class="form-control" placeholder="Avatar url" style="cursor: auto;" value="" ng-disabled="$ctrl.viewMode">
+                    <p ng-show="contactForm.avatar.$invalid && !contactForm.avatar.$pristine" class="error-help">Please enter a valid url.</p>
+                </div>
+            </div>
+            <div class="form-group row">
+                <label for="birthday" class="col-md-2 col-form-label">Date</label>
+                <div class="col-md-10">
+                    <input name="birthday"  type="date" ng-model="$ctrl.contactDetail.birthday" class="form-control" style="cursor: auto;" ng-disabled="$ctrl.viewMode">
+                </div>
+            </div>
+            <p class="text-center">
+                <a class="btn btn-default btn-fab" ng-href="#!/contacts">
+                    <i class="material-icons">arrow_back</i>
+                </a>
+                <a class="btn btn-info btn-fab" ng-href="#!/contacts/details/edit/{{$ctrl.contactDetail.id}}" ng-show="$ctrl.viewMode">
+                    <i class="material-icons">create</i>
+                </a>
+                <button type="submit" class="btn btn-success btn-fab" ng-disabled="contactForm.$invalid" ng-hide="$ctrl.viewMode" >
+                    <i class="material-icons">done</i>
+                </button>
+            </p>
+            </form>
+        </div>
+    </div>
+</div>
+<div class="col-md-16" ng-if="$ctrl.errMsg">
+    <div class="card">
+        <div class="info">
+            <p class="row text-center text-danger">Contact not found. Please create a new contact.</p>        
+            <p class="text-center">
+                <a class="btn btn-default btn-fab" ng-href="#!/contacts">
+                    <i class="material-icons">arrow_back</i>
+                </a>
+                <a class="btn btn-info btn-fab" ng-href="#!/contacts/details/add">
+                    <i class="material-icons">create</i>
+                </a>
+            </p>
+        </div>
+    </div>
+</div>
